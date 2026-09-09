@@ -1,0 +1,51 @@
+{% extends "visionboard/base.html" %}
+{% block content %}
+<a href="{% url 'board_detail' goal.board.id %}">← Back to board</a>
+
+<h1>{{ goal.title }}</h1>
+<p>{{ goal.description }}</p>
+<p>Status: {{ goal.get_status_display }}</p>
+<p>Progress: {{ goal.progress_percent }}%</p>
+{% if goal.deadline %}<p>Deadline: {{ goal.deadline }}</p>{% endif %}
+<a class="button" href="{% url 'goal_edit' goal.id %}">Edit goal</a>
+
+<h2>Milestones</h2>
+<ul>
+{% for item in goal.milestones.all %}
+  <li>
+    <form method="post" action="{% url 'toggle_milestone' item.id %}">
+      {% csrf_token %}
+      <button type="submit">{{ item.completed|yesno:"✓,○" }}</button>
+      {{ item.title }}
+    </form>
+  </li>
+{% empty %}<li>No milestones yet.</li>{% endfor %}
+</ul>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="milestone_title" value="1">
+  {{ milestone_form.as_p }}
+  <button class="button">Add milestone</button>
+</form>
+
+<h2>Tasks</h2>
+<ul>
+{% for item in goal.tasks.all %}
+  <li>
+    <form method="post" action="{% url 'toggle_task' item.id %}">
+      {% csrf_token %}
+      <button type="submit">{{ item.completed|yesno:"✓,○" }}</button>
+      {{ item.title }}
+    </form>
+  </li>
+{% empty %}<li>No tasks yet.</li>{% endfor %}
+</ul>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="task_title" value="1">
+  {{ task_form.as_p }}
+  <button class="button">Add task</button>
+</form>
+{% endblock %}

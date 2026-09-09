@@ -1,0 +1,16 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision Boards</title>
+  <link rel="stylesheet" href="{% static 'visionboard/style.css' %}">
+</head>
+<body>
+  <nav>
+    <a href="{% url 'board_list' %}">Vision Boards</a>
+  </nav>
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "visionboard/base.html" %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>{{ board.title }}</h1>
+    <p>{{ board.description }}</p>
+  </div>
+  <a class="button" href="{% url 'goal_create' board.id %}">Add goal</a>
+</div>
+
+<div class="canvas">
+  {% for goal in board.goals.all %}
+  <article class="goal-card" draggable="true"
+    data-id="{{ goal.id }}"
+    style="left: {{ goal.position_x }}px; top: {{ goal.position_y }}px;">
+    {% if goal.image %}
+      <img src="{{ goal.image.url }}" alt="">
+    {% elif goal.image_url %}
+      <img src="{{ goal.image_url }}" alt="">
+    {% endif %}
+    <h2><a href="{% url 'goal_detail' goal.id %}">{{ goal.title }}</a></h2>
+    <p>{{ goal.description|truncatewords:18 }}</p>
+    <progress value="{{ goal.progress_percent }}" max="100"></progress>
+    <small>{{ goal.progress_percent }}% · {{ goal.get_status_display }}</small>
+  </article>
+  {% empty %}
+  <p class="empty">Add a goal to start building your vision board.</p>
+  {% endfor %}
+</div>
+
+<script>
+document.querySelectorAll(".goal-card").forEach(card => {
+  card.addEventListener("dragend", async event => {
+    const rect = event.target.parentElement.getBoundingClientRect();
+    const x = Math.max(0, Math.round(event.clientX - rect.left));
+    const y = Math.max(0, Math.round(event.clientY - rect.top));
+
+    event.target.style.left = `${x}px`;
+    event.target.style.top = `${y}px`;
+
+    const data = new FormData();
+    data.append("x", x);
+    data.append("y", y);
+    data.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+
+    await fetch(`/goals/${event.target.dataset.id}/position/`, {
+      method: "POST",
+      body: data
+    });
+  });
+});
+</script>
+{% endblock %}

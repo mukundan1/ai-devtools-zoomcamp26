@@ -1,0 +1,21 @@
+{% extends "visionboard/base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>Your vision boards</h1>
+  <a class="button" href="{% url 'board_create' %}">New board</a>
+</div>
+
+{% if boards %}
+<div class="board-list">
+  {% for board in boards %}
+  <a class="board-preview" href="{% url 'board_detail' board.id %}">
+    <h2>{{ board.title }}</h2>
+    <p>{{ board.description|default:"No description" }}</p>
+    <small>{{ board.goals.count }} goal{{ board.goals.count|pluralize }}</small>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p>No boards yet. Create your first one.</p>
+{% endif %}
+{% endblock %}
