@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Kanban</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div>
+        <h1>Mini Kanban</h1>
+        <p>FastAPI + OpenAPI + SQLite</p>
+      </div>
+      <button id="add-task">＋ Add task</button>
+    </header>
+
+    <section id="board" class="board">
+      <div class="loading">Loading board…</div>
+    </section>
+  </main>
+
+  <dialog id="task-dialog">
+    <form method="dialog" id="task-form">
+      <h2 id="dialog-title">New task</h2>
+
+      <label>
+        Title
+        <input id="title" required maxlength="200" autofocus>
+      </label>
+
+      <label>
+        Description
+        <textarea id="description" maxlength="2000"></textarea>
+      </label>
+
+      <label>
+        Column
+        <select id="status">
+          <option value="todo">To do</option>
+          <option value="doing">In progress</option>
+          <option value="done">Done</option>
+        </select>
+      </label>
+
+      <div class="dialog-actions">
+        <button type="button" class="secondary" id="cancel">Cancel</button>
+        <button type="submit">Save task</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

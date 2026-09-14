@@ -1,0 +1,191 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #172033;
+  background: #f3f5f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+header p {
+  color: #687386;
+  margin-top: 5px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  color: white;
+  background: #3867e8;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(.94);
+}
+
+button.secondary {
+  color: #344054;
+  background: #e8ebf1;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.column {
+  min-height: 450px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #e6eaf1;
+}
+
+.column h2 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.count {
+  color: #737d8f;
+  font-weight: normal;
+}
+
+.task-list {
+  min-height: 390px;
+}
+
+.task {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 11px;
+  box-shadow: 0 2px 7px #1d294015;
+  cursor: grab;
+}
+
+.task:active {
+  cursor: grabbing;
+}
+
+.task h3 {
+  font-size: 15px;
+  margin: 0 0 7px;
+}
+
+.task p {
+  color: #687386;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.task-footer button {
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.empty {
+  color: #8993a5;
+  text-align: center;
+  padding: 35px 5px;
+  font-size: 13px;
+}
+
+dialog {
+  width: min(430px, calc(100vw - 30px));
+  border: 0;
+  border-radius: 13px;
+  padding: 0;
+  box-shadow: 0 15px 50px #11182740;
+}
+
+dialog::backdrop {
+  background: #11182780;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+form h2 {
+  margin-bottom: 4px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: #344054;
+  font-size: 14px;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 7px;
+  padding: 10px;
+  font: inherit;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (max-width: 760px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+}
