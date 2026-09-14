@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Mini Kanban API
+  version: 1.0.0
+paths:
+  /api/health:
+    get:
+      responses:
+        "200":
+          description: Health status
+  /api/tasks:
+    get:
+      responses:
+        "200":
+          description: List tasks
+    post:
+      requestBody:
+        required: true
+      responses:
+        "201":
+          description: Created task
+  /api/tasks/{task_id}:
+    patch:
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated task
+    delete:
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted task
